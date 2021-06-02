@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/DrmagicE/gmqtt/pkg/codes"
+	"github.com/stalehd/gmqtt/pkg/codes"
 )
 
 type Auth struct {

@@ -54,10 +54,6 @@ tools:
 	go get -u github.com/golang/lint/golint
 	go get github.com/golang/mock/mockgen@v1.4.4
 	# Reqire when adding proto and grpc compilation
-	# go get -u github.com/golang/protobuf/protoc-gen-go
-	# go get -u github.com/mwitkow/go-proto-validators/protoc-gen-govalidators
-	# go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
-	# go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
 
 # format the go source files
 fmt:
@@ -71,29 +67,6 @@ lint:
 vet:
 	go vet ./...
 
-# generate godocs and start a local documentation webserver on port 8085
-doc:
-	godoc -http=:8085 -index
-
-# update golang dependencies
-update-dependencies:
-	go mod tidy
-
-# generate grpc, grpc-gw files and swagger docs
-generate-grpc: compile-proto generate-grpcgw generate-swagger
-
-# compile protobuf definitions into golang source
-compile-proto:
-	echo 'To Be implemented'
-
-# generate grpc-gw reverse proxy code
-generate-grpcgw:
-	echo 'To Be implemented'
-	
-# generate swagger docs from the proto files
-generate-swagger:
-	echo 'To Be implemented'
-
 # generate mock code
 generate-mocks:
 	@./mock_gen.sh
@@ -101,16 +74,10 @@ generate-mocks:
 go-generate:
 	go generate ./...
 
-run: go-generate
-	go run ./cmd/gmqttd start -c ./cmd/gmqttd/default_config.yml
-
-# generate all grpc files and mocks and build the go code
-build: go-generate
-	go build -o $(BUILD_DIR)/gmqttd ./cmd/gmqttd
 
 # generate mocks and run short tests
 test: generate-mocks
-	go test -v -race ./... 
+	go test -v -race ./...
 
 # run benchmark tests
 test-bench: generate-mocks
